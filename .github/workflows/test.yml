@@ -1,0 +1,29 @@
+name: ubuntu with gfortran
+run-name: ubuntu with gfortran is testing 🚀
+on: [push, pull_request]
+jobs:
+  test-all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: List files in the repository
+        run: |
+          pwd
+          ls ../
+          ls ../../
+          ls ${{ github.workspace }}
+      - name: Install GFortran Linux
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install gfortran -y
+          gfortran --version
+      - uses: fortran-lang/setup-fpm@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: fpm test (debug)
+        run: |
+              fpm test --profile debug --verbose
+      - name: make run
+        run: |
+          COMPIFLE=gnu make run

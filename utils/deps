@@ -1,0 +1,53 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+    # Fortran is case insensitive, disable case sensitivity for matching
+    IGNORECASE = 1
+}
+
+function basename(file){
+    sub(/.*\//, "", file) 
+    #sub(/.(F90|f90)$/, ".o", file)
+    sub(/$/, ".o", file)
+    return file
+}
+
+# Match a module statement
+# - the first argument ($1) should be the whole word module
+# - the second argument ($2) should be a valid module name
+$1 ~ /^module$/ &&
+$2 ~ /^[a-zA-Z][a-zA-Z0-9_]*$/ {
+    # count module names per file to avoid having modules twice in our list
+    if (modc[FILENAME,$2]++ == 0) {
+        # add to the module list, the generated module name is expected
+        # to be lowercase, the FILENAME is the current source file
+        # mod[++im] = sprintf("%s.mod : $(%s)", tolower($2), FILENAME)
+        file = FILENAME
+        PWD = ENVIRON["PWD"]
+        mod[++im] = sprintf("%s.mod := %s/build/make/%s", tolower($2), PWD, basename(file))
+    }
+}
+
+# Match a use statement
+# - the first argument ($1) should be the whole word use
+# - the second argument ($2) should be a valid module name
+$1 ~ /^use$/ &&
+$2 ~ /^[a-zA-Z][a-zA-Z0-9_]*,?$/ {
+    # Remove a trailing comma from an optional only statement
+    gsub(/,/, "", $2)
+    # count used module names per file to avoid using modules twice in our list
+    if (usec[FILENAME,$2]++ == 0) {
+        # add to the used modules, the generated module name is expected
+        # to be lowercase, the FILENAME is the current source file
+        file = FILENAME
+        PWD = ENVIRON["PWD"]
+        use[++iu] = sprintf("%s/build/make/%s: $(%s.mod)", PWD, basename(file), tolower($2))
+    }
+}
+
+# Finally, produce the output for make, loop over all modules, use statements
+# and include statements, empty lists are ignored in awk
+END {
+    for (i in mod) print mod[i]
+    for (i in use) print use[i]
+}

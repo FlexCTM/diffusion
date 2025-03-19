@@ -1,6 +1,37 @@
 ## diffusion
 Sub-grid turbulent diffusion
 
+## 安装
+1. 使用MAKE安装
+```
+make lib
+```
+
+2. 使用CMAKE安装
+```
+mkdir build; cd build
+
+FC=ifort cmake ../ # 正常编译
+FC=ifort cmake  -DCMAKE_BUILD_TYPE=Debug ../ # 调试
+
+make
+```
+
+3. 使用包管理器 fpm 安装
+```
+fpm build --compiler 'ifort'
+```
+
+## 单元测试
+```
+fpm test --compiler 'ifort'
+```
+
+## 调试
+```
+COMPIFLE=gnu make gdb
+```
+
 ## License
 This software is distributed under a **dual-license model**:  
 
