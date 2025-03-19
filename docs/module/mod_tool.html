@@ -1,0 +1,512 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Documentation for diffusion">
+    <meta name="author" content="Linhong Xiao" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>mod_tool &ndash; diffusion</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+      <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">diffusion </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="../page/index.html">手册</a></li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>mod_tool
+      <small>Module</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title="14.5% of total for modules and submodules.">24 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/module_tool.F90"> Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/module_tool.f90.html'>module_tool.F90</a></li>
+            <li class="breadcrumb-item active" aria-current="page">mod_tool</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/mod_tool.html#variable-fp">fp</a>
+            <a class="list-group-item" href="../module/mod_tool.html#variable-eps">eps</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#subs-0"
+         aria-expanded="false" aria-controls="subs-0">
+         <h4 class="card-header bg-primary text-white">Subroutines</h4>
+      </a>
+      <div id="subs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/mod_tool.html#proc-cal_cfl_time_step">cal_cfl_time_step</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+
+
+  </div>
+
+    </div>
+
+    <div class="col-md-9" id='text'>
+      <p>工具集</p>
+<br>      
+          <div class="card">
+      <h3 class="card-header card-title bg-light">Used by</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.30.1 (20201013.1554)
+ -->
+<!-- Title: module~~mod_tool~~UsedByGraph Pages: 1 -->
+<svg id="modulemod_toolUsedByGraph" width="266pt" height="86pt"
+ viewBox="0.00 0.00 266.00 86.44" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="module~~mod_tool~~UsedByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 82.4404)">
+<title>module~~mod_tool~~UsedByGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-82.4404 263,-82.4404 263,5 -4,5"/>
+<!-- module~mod_tool -->
+<g id="module~~mod_tool~~UsedByGraph_node1" class="node"><title>module~mod_tool</title>
+<polygon fill="none" stroke="black" points="62,-66 0,-66 0,-42 62,-42 62,-66"/>
+<text text-anchor="middle" x="31" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50">mod_tool</text>
+</g>
+<!-- module~diffusion -->
+<g id="module~~mod_tool~~UsedByGraph_node2" class="node"><title>module~diffusion</title>
+<g id="a_module~~mod_tool~~UsedByGraph_node2"><a xlink:href="../module/diffusion.html" xlink:title="diffusion">
+<polygon fill="#337ab7" stroke="#337ab7" points="258,-66 200,-66 200,-42 258,-42 258,-66"/>
+<text text-anchor="middle" x="229" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">diffusion</text>
+</a>
+</g>
+</g>
+<!-- module~diffusion&#45;&gt;module~mod_tool -->
+<g id="module~~mod_tool~~UsedByGraph_edge1" class="edge"><title>module~diffusion&#45;&gt;module~mod_tool</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M199.807,-65.388C188.823,-69.2543 176.009,-73.0801 164,-75 135.034,-79.6307 126.986,-79.5003 98,-75 89.3744,-73.6608 80.3335,-71.3925 71.8065,-68.8297"/>
+<polygon fill="#000000" stroke="#000000" points="72.6792,-65.4342 62.0883,-65.7239 70.5482,-72.102 72.6792,-65.4342"/>
+</g>
+<!-- module~mod_hdiff -->
+<g id="module~~mod_tool~~UsedByGraph_node3" class="node"><title>module~mod_hdiff</title>
+<g id="a_module~~mod_tool~~UsedByGraph_node3"><a xlink:href="../module/mod_hdiff.html" xlink:title="mod_hdiff">
+<polygon fill="#337ab7" stroke="#337ab7" points="164,-66 98,-66 98,-42 164,-42 164,-66"/>
+<text text-anchor="middle" x="131" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mod_hdiff</text>
+</a>
+</g>
+</g>
+<!-- module~diffusion&#45;&gt;module~mod_hdiff -->
+<g id="module~~mod_tool~~UsedByGraph_edge4" class="edge"><title>module~diffusion&#45;&gt;module~mod_hdiff</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M199.975,-54C191.94,-54 182.996,-54 174.304,-54"/>
+<polygon fill="#000000" stroke="#000000" points="174.287,-50.5001 164.287,-54 174.287,-57.5001 174.287,-50.5001"/>
+</g>
+<!-- module~mod_vdiff -->
+<g id="module~~mod_tool~~UsedByGraph_node4" class="node"><title>module~mod_vdiff</title>
+<g id="a_module~~mod_tool~~UsedByGraph_node4"><a xlink:href="../module/mod_vdiff.html" xlink:title="mod_vdiff">
+<polygon fill="#337ab7" stroke="#337ab7" points="163.5,-24 98.5,-24 98.5,-0 163.5,-0 163.5,-24"/>
+<text text-anchor="middle" x="131" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mod_vdiff</text>
+</a>
+</g>
+</g>
+<!-- module~diffusion&#45;&gt;module~mod_vdiff -->
+<g id="module~~mod_tool~~UsedByGraph_edge5" class="edge"><title>module~diffusion&#45;&gt;module~mod_vdiff</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M200.49,-41.9645C190.649,-37.6588 179.393,-32.7342 168.888,-28.1384"/>
+<polygon fill="#000000" stroke="#000000" points="170.078,-24.839 159.514,-24.0373 167.272,-31.2521 170.078,-24.839"/>
+</g>
+<!-- module~mod_hdiff&#45;&gt;module~mod_tool -->
+<g id="module~~mod_tool~~UsedByGraph_edge2" class="edge"><title>module~mod_hdiff&#45;&gt;module~mod_tool</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M97.9111,-54C89.7358,-54 80.8446,-54 72.316,-54"/>
+<polygon fill="#000000" stroke="#000000" points="72.1653,-50.5001 62.1653,-54 72.1652,-57.5001 72.1653,-50.5001"/>
+</g>
+<!-- module~mod_vdiff&#45;&gt;module~mod_tool -->
+<g id="module~~mod_tool~~UsedByGraph_edge3" class="edge"><title>module~mod_vdiff&#45;&gt;module~mod_tool</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M101.917,-24.0355C91.7681,-28.3851 80.1453,-33.3663 69.3282,-38.0022"/>
+<polygon fill="#000000" stroke="#000000" points="67.8997,-34.8065 60.087,-41.9627 70.6572,-41.2405 67.8997,-34.8065"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsedByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsedByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.30.1 (20201013.1554)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="517pt" height="32pt"
+ viewBox="0.00 0.00 517.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-28 514,-28 514,5 -4,5"/>
+<!-- Module -->
+<g id="node1" class="node"><title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,-0 54,-0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node"><title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="145.25,-24 72.75,-24 72.75,-0 145.25,-0 145.25,-24"/>
+<text text-anchor="middle" x="109" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node"><title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="234.25,-24 163.75,-24 163.75,-0 234.25,-0 234.25,-24"/>
+<text text-anchor="middle" x="199" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node"><title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="311,-24 253,-24 253,-0 311,-0 311,-24"/>
+<text text-anchor="middle" x="282" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node"><title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="387,-24 329,-24 329,-0 387,-0 387,-24"/>
+<text text-anchor="middle" x="358" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node"><title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="509,-24 405,-24 405,-0 509,-0 509,-24"/>
+<text text-anchor="middle" x="457" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-fp"></span>
+              integer,
+            </td>
+              <td>public,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>fp</strong></td>
+<td> =</td>
+                <td>8</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-eps"></span>
+              real(kind=fp),
+            </td>
+              <td>public,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>eps</strong></td>
+<td> =</td>
+                <td>epsilon(1.0_fp)</td>
+            <td>
+                <p>极小值</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+        <section>
+          <h2>Subroutines</h2>
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-cal_cfl_time_step"></span> <h3>public  subroutine <a href='../proc/cal_cfl_time_step.html'>cal_cfl_time_step</a>(dx, kx, dt, dt_, nt)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>计算满足 CFL(Courant–Friedrichs–Lewy) 条件的时间积分步长</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dx"></span>
+              real(kind=fp),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dx</strong>(:)</td>
+            <td>
+<p>网格分辨率: m</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-kx"></span>
+              real(kind=fp),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>kx</strong>(:)</td>
+            <td>
+<p>扩散系数: m2/s</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dt"></span>
+              real(kind=fp),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dt</strong></td>
+            <td>
+<p>全局迭代步长: s</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dt_"></span>
+              real(kind=fp),
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dt_</strong></td>
+            <td>
+<p>局部迭代步长: s</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-nt"></span>
+              integer,
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>nt</strong></td>
+            <td>
+<p>迭代多少次</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+        </section>
+        <br>
+
+
+
+    </div>
+  </div>
+
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              diffusion
+ was developed by Linhong Xiao<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+
+    <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>

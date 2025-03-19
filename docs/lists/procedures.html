@@ -1,0 +1,280 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Documentation for diffusion">
+    <meta name="author" content="Linhong Xiao" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>All Procedures &ndash; diffusion
+</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+      <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">diffusion </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="../page/index.html">手册</a></li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12" id='text'>
+			 <h1>Procedures</h1>
+			 <table class="table table-striped">
+			 <thead><tr><th>Procedure</th><th>Location</th><th>Procedure Type</th><th>Description</th></tr></thead>
+			 <tbody>
+			   <tr>
+                 <td><a href='../proc/cal_cfl_time_step.html'>cal_cfl_time_step</a></td>
+                 <td><a href='../module/mod_tool.html'>mod_tool</a></td>
+                 <td>Subroutine</td>
+                 <td><p>计算满足 CFL(Courant–Friedrichs–Lewy) 条件的时间积分步长</p></td>
+               </tr>
+			   <tr>
+                 <td><a href='../proc/cal_kh_by_deformation_method.html'>cal_kh_by_deformation_method</a></td>
+                 <td><a href='../module/mod_hdiff.html'>mod_hdiff</a></td>
+                 <td>Subroutine</td>
+                 <td><p>计算次网格湍流扩散的水平扩散系数 in the Arakawa C grid。
+采用形变方法计算水平扩散系数，参考 Smagorinsky (1963)。</p><a href="../proc/cal_kh_by_deformation_method.html" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+               </tr>
+			   <tr>
+                 <td><a href='../proc/hdiff1d_by_k_theory.html'>hdiff1d_by_k_theory</a></td>
+                 <td><a href='../module/mod_hdiff.html'>mod_hdiff</a></td>
+                 <td>Subroutine</td>
+                 <td><p>采用前向欧拉法求解 1D 次网格湍流扩散（K-theory），最外 1 圈为边界，不做更新。
+假设密度的扰动相对于平均密度很小，可以忽略。
+采用体积比计算扩散，确保污染物浓度分布与密度分布的一致性。</p></td>
+               </tr>
+			   <tr>
+                 <td><a href='../proc/thomas_solver.html'>thomas_solver</a></td>
+                 <td><a href='../module/mod_vdiff.html'>mod_vdiff</a></td>
+                 <td>Subroutine</td>
+                 <td><p>Thomas算法求解三对角矩阵线性方程组 Ax = d，
+其中，A = [a, b, c]</p></td>
+               </tr>
+			   <tr>
+                 <td><a href='../proc/vdiff_by_k_theory.html'>vdiff_by_k_theory</a></td>
+                 <td><a href='../module/mod_vdiff.html'>mod_vdiff</a></td>
+                 <td>Subroutine</td>
+                 <td><p>采用后向欧拉法求解垂直方向的网格湍流扩散（K-theory）。
+用 Thomas 算法求解后向时间差分格式的垂直扩散方程。
+假设底层和顶层边界通量均为 0。</p></td>
+               </tr>
+			 </tbody></table>
+             <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.30.1 (20201013.1554)
+ -->
+<!-- Title: call~~graph~~CallGraph Pages: 1 -->
+<svg id="callgraphCallGraph" width="316pt" height="158pt"
+ viewBox="0.00 0.00 316.00 158.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="call~~graph~~CallGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 154)">
+<title>call~~graph~~CallGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-154 313,-154 313,5 -4,5"/>
+<!-- proc~cal_cfl_time_step -->
+<g id="call~~graph~~CallGraph_node1" class="node"><title>proc~cal_cfl_time_step</title>
+<g id="a_call~~graph~~CallGraph_node1"><a xlink:href="../proc/cal_cfl_time_step.html" xlink:title="cal_cfl_time_step">
+<polygon fill="#d9534f" stroke="#d9534f" points="142.5,-24 39.5,-24 39.5,-0 142.5,-0 142.5,-24"/>
+<text text-anchor="middle" x="91" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cal_cfl_time_step</text>
+</a>
+</g>
+</g>
+<!-- proc~cal_kh_by_deformation_method -->
+<g id="call~~graph~~CallGraph_node2" class="node"><title>proc~cal_kh_by_deformation_method</title>
+<g id="a_call~~graph~~CallGraph_node2"><a xlink:href="../proc/cal_kh_by_deformation_method.html" xlink:title="cal_kh_by_deformation_method">
+<polygon fill="#d9534f" stroke="#d9534f" points="182,-66 0,-66 0,-42 182,-42 182,-66"/>
+<text text-anchor="middle" x="91" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cal_kh_by_deformation_method</text>
+</a>
+</g>
+</g>
+<!-- proc~hdiff1d_by_k_theory -->
+<g id="call~~graph~~CallGraph_node3" class="node"><title>proc~hdiff1d_by_k_theory</title>
+<g id="a_call~~graph~~CallGraph_node3"><a xlink:href="../proc/hdiff1d_by_k_theory.html" xlink:title="hdiff1d_by_k_theory">
+<polygon fill="#d9534f" stroke="#d9534f" points="150.5,-108 31.5,-108 31.5,-84 150.5,-84 150.5,-108"/>
+<text text-anchor="middle" x="91" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">hdiff1d_by_k_theory</text>
+</a>
+</g>
+</g>
+<!-- proc~thomas_solver -->
+<g id="call~~graph~~CallGraph_node4" class="node"><title>proc~thomas_solver</title>
+<g id="a_call~~graph~~CallGraph_node4"><a xlink:href="../proc/thomas_solver.html" xlink:title="thomas_solver">
+<polygon fill="#d9534f" stroke="#d9534f" points="308,-150 218,-150 218,-126 308,-126 308,-150"/>
+<text text-anchor="middle" x="263" y="-135.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">thomas_solver</text>
+</a>
+</g>
+</g>
+<!-- proc~vdiff_by_k_theory -->
+<g id="call~~graph~~CallGraph_node5" class="node"><title>proc~vdiff_by_k_theory</title>
+<g id="a_call~~graph~~CallGraph_node5"><a xlink:href="../proc/vdiff_by_k_theory.html" xlink:title="vdiff_by_k_theory">
+<polygon fill="#d9534f" stroke="#d9534f" points="143.5,-150 38.5,-150 38.5,-126 143.5,-126 143.5,-150"/>
+<text text-anchor="middle" x="91" y="-135.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">vdiff_by_k_theory</text>
+</a>
+</g>
+</g>
+<!-- proc~vdiff_by_k_theory&#45;&gt;proc~thomas_solver -->
+<g id="call~~graph~~CallGraph_edge1" class="edge"><title>proc~vdiff_by_k_theory&#45;&gt;proc~thomas_solver</title>
+<path fill="none" stroke="#000000" d="M143.929,-138C164.144,-138 187.315,-138 207.747,-138"/>
+<polygon fill="#000000" stroke="#000000" points="207.841,-141.5 217.841,-138 207.841,-134.5 207.841,-141.5"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.30.1 (20201013.1554)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="27pt"
+ viewBox="0.00 0.00 641.00 27.39" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.855808 0.855808) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-28 746,-28 746,5 -4,5"/>
+<!-- Subroutine -->
+<g id="node1" class="node"><title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="70.25,-24 -0.25,-24 -0.25,-0 70.25,-0 70.25,-24"/>
+<text text-anchor="middle" x="35" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node"><title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="147,-24 89,-24 89,-0 147,-0 147,-24"/>
+<text text-anchor="middle" x="118" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node"><title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="226.25,-24 165.75,-24 165.75,-0 226.25,-0 226.25,-24"/>
+<text text-anchor="middle" x="196" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node"><title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="377.25,-24 244.75,-24 244.75,-0 377.25,-0 377.25,-24"/>
+<text text-anchor="middle" x="311" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node"><title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="542.25,-24 395.75,-24 395.75,-0 542.25,-0 542.25,-24"/>
+<text text-anchor="middle" x="469" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node"><title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="619,-24 561,-24 561,-0 619,-0 619,-24"/>
+<text text-anchor="middle" x="590" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node"><title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="741,-24 637,-24 637,-0 741,-0 741,-24"/>
+<text text-anchor="middle" x="689" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              diffusion
+ was developed by Linhong Xiao<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+
+    <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>

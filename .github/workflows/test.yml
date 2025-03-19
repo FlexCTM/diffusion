@@ -18,7 +18,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install gfortran -y
           gfortran --version
-      - uses: fortran-lang/setup-fpm@v5
+      - uses: fortran-lang/setup-fpm@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: fpm test (debug)
