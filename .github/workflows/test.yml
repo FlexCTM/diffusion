@@ -23,10 +23,9 @@ jobs:
         run: |
           wget https://github.com/fortran-lang/fpm/releases/download/v0.11.0/fpm-0.11.0-linux-x86_64-gcc-12 -O fpm
           chmod +x fpm
-          export PATH=$PATH:$PWD
       - name: unit test
         run: |
-              fpm test --profile debug --verbose
+              ./fpm test --profile debug --verbose
       - name: make run
         run: |
           COMPIFLE=gnu make run
