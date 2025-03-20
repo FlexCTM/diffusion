@@ -6,11 +6,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="description" content="Documentation for diffusion">
+      <meta name="description" content="湍流扩散">
     <meta name="author" content="Linhong Xiao" >
     <link rel="icon" href="../favicon.png">
 
-    <title>开发者手册 &ndash; diffusion</title>
+    <title>湍流扩散 &ndash; FlexCTM/diffusion</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -29,7 +29,7 @@
     <div class="container-fluid mb-sm-4 mb-xl-2">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="../index.html">diffusion </a>
+          <a class="navbar-brand" href="../index.html">FlexCTM/diffusion </a>
           <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
                   aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon">
@@ -37,7 +37,7 @@
 
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="index.html">手册</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html">开发者手册</a></li>
                   <li class="nav-item">
                     <a class="nav-link" href="../lists/files.html">Source Files</a>
                   </li>
@@ -46,6 +46,9 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../program/main.html">Program</a>
                 </li>
             </ul>
               <div class="d-flex align-items-end flex-grow-1">
@@ -60,7 +63,7 @@
 
     <div class="container">
   <div class="row">
-    <h1>开发者手册</h1>
+    <h1>湍流扩散</h1>
     <div class="container p-2 mb-4 bg-light border rounded-3">
       <div class="row align-items-center justify-content-between">
         <div class="col">
@@ -70,8 +73,8 @@
         <div class="col">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-end mb-0">
-                <li class="breadcrumb-item"><a href='index.html'>手册</a></li>
-              <li class="breadcrumb-item active" aria-current="page">开发者手册</li>
+                <li class="breadcrumb-item"><a href='index.html'>开发者手册</a></li>
+              <li class="breadcrumb-item active" aria-current="page">湍流扩散</li>
             </ol>
           </nav>
         </div>
@@ -84,13 +87,14 @@
         <div class="card card-body bg-light" id="sidebar-toc">
           <ul class="nav flex-column align-items">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">手册</a>
+              <a class="nav-link" href="index.html">开发者手册</a>
             </li>
           </ul>
           <hr>
           <nav class="nav nav-pills flex-column">
-              <a class="nav-link active disabled" href="dev.html">开发者手册</a>
-              <a class="nav-link" href="user.html">使用者手册</a>
+              <a class="nav-link active disabled" href="summary.html">湍流扩散</a>
+              <a class="nav-link" href="horizontal.html">水平扩散</a>
+              <a class="nav-link" href="vertical.html">垂直扩散</a>
           </nav>
         </div>
       </div>
@@ -135,8 +139,8 @@
 </p>
 <p>其中，<strong>公式 1.4 右边的第二项</strong>即为扩散项（湍流扩散项）的数学表达。
 该项描述了湍流对浓度分配的贡献，使得离散化后的连续方程在数学上得以闭合。</p>
-<!-- ![Reynolds](../images/Reynolds.png) -->
-<p><center><img src="../images/Reynolds.png" alt="Reynolds" width="1000"></center></p>
+<!-- ![Reynolds](../media/Reynolds.png) -->
+<p><center><img src="../media/Reynolds.png" alt="Reynolds" width="1000"></center></p>
 <p>需要注意的是，雷诺分解后的时间平均项代表的是平滑的背景场（时空平滑），依然是一个连续函数。
 而数值离散化则可以理解为对雷诺分解后的时间平均项进行离散采样，
 即在有限的网格点上近似表示这一连续背景场。</p>
@@ -157,8 +161,10 @@ K理论假设湍流扩散与分子扩散类似，引入了一个湍流扩散系�
 而湍流扩散是由气流中的湍流湍动引起的随机过程（在雷诺分解表现为均值为0的白噪音）。</p>
 </li>
 </ul>
-<p><img alt="分子扩散" src="../images/diffusion.png"></p>
-<p>散的速率直观上与物质浓度差以及介质和环境条件（如气压、温度等）密切相关。根据菲克定律（可以看看<a href="https://www.youtube.com/watch?v=ly4S0oi3Yz8">热传导方程</a>），
+<!-- ![分子扩散](../media/diffusion.png) -->
+<p><center><img src="../media/diffusion.png" alt="Reynolds" width="1000"></center></p>
+<p>散的速率直观上与物质浓度差以及介质和环境条件（如气压、温度等）密切相关。
+根据菲克定律（可以看看<a href="https://www.youtube.com/watch?v=ly4S0oi3Yz8">热传导方程</a>），
 分子扩散的通量公式为：
 <script type="math/tex; mode=display"> J = -D_t \frac{\partial c}{\partial x}</script>
 </p>
@@ -208,202 +214,6 @@ K理论假设湍流扩散与分子扩散类似，引入了一个湍流扩散系�
 </p>
 <p>对于地球大气而言，水平方向的湍流主要由风速剪切引起，而垂直方向的湍流则主要受温度梯度的影响。
 因此，数值模式通常分别处理污染物的水平扩散和垂直扩散。</p>
-<h2>1.3 水平扩散</h2>
-<p>相较于水平输送，水平扩散的影响通常较小，在某些情况下甚至可以忽略不计。</p>
-<p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial c}{\partial t} &=
-\frac{\partial}{\partial x} \left(K_x \rho\frac{\partial (\frac{c}{\rho})}{\partial x} \right) \\
-\frac{\partial c}{\partial t} &=
-\frac{\partial}{\partial y} \left(K_y \rho\frac{\partial (\frac{c}{\rho})}{\partial y} \right) \\
-\end{align*}
-</script>
-</p>
-<p>根据 Smagorinsky (1963) 公式，可求解水平扩散系数 
-<script type="math/tex; mode=display">
-   K_{x, y} = C_s \Delta^2 |D|
-</script>
-</p>
-<p>其中：
-- <script type="math/tex"> C_s </script> 是 Smagorinsky 常数（通常取 <strong>0.1 - 0.25</strong>，大气应用中常用 <strong>0.2</strong>）。
-- <script type="math/tex"> \Delta </script> 是网格尺度（通常定义为网格间距的几何平均：<script type="math/tex"> \Delta = (\Delta x \Delta y )^{1/2} </script>）。
-- <script type="math/tex"> |\mathbf{D}| </script> 是水平速度的二阶张量的模量，定义为：
-  <script type="math/tex; mode=display">
-  |\mathbf{D}| = [(\frac{\partial u}{\partial y} +
-    \frac{\partial v}{\partial x})^2
-  +(\frac{\partial u}{\partial x} -
-    \frac{\partial v}{\partial y})^2]^{1/2}
-  </script>
-</p>
-<p>可以增加一个常数，让模拟的浓度变得更加光滑（Anthes and Warner, 1978）。
-<script type="math/tex; mode=display">
-   K_{x, y} = K_0 + C_s \Delta^2 |D|
-</script>
-</p>
-<p>其中<script type="math/tex">K_0</script>的值为</p>
-<p>
-<script type="math/tex; mode=display">
-  K_0 = 3 \times 10^{-3} \frac{\Delta x \Delta y}{\Delta t}
-</script>
-</p>
-<p>为了便于通量计算，水平扩散系数<script type="math/tex">K_{x, y}</script> 通常是在 Arakawa C 网格上定义，对于一个网格单元，其四条边上的每一条边均需计算一个<script type="math/tex">K</script>值，以准确描述水平扩散过程。</p>
-<p>
-<script type="math/tex">K</script>的计算涉及到速度的空间差分，采用中值差分方案求速度梯度。</p>
-<p>
-<script type="math/tex; mode=display">
-(\frac{\partial u}{\partial x})_{i+1/2, j} = 
-\frac{u_{i+1/2+1, j} - u_{i+1/2-1, j}} {2 \Delta x}
-</script>
-</p>
-<p>
-<script type="math/tex; mode=display">
-(\frac{\partial u}{\partial y})_{i+1/2, j} = 
-\frac{u_{i+1/2, j+1} - u_{i+1/2, j-1}}{2 \Delta y}
-</script>
-</p>
-<p>在求解 v-stag 网格点上的 <script type="math/tex">v</script> 在 u-stag 网格上的梯度时，需要首先将 
-<script type="math/tex">v</script>从 v-stag 网格插值到 mass 网格。为了简单，通常采用线性插值方法。</p>
-<p>
-<script type="math/tex; mode=display">
-v(i, j) = 
-\frac{v(i, j+\frac{1}{2}) + v(i, j-\frac{1}{2})}{2}
-</script>
-</p>
-<p>因此
-<script type="math/tex; mode=display">
-(\frac{\partial v}{\partial x})_{i+1/2, j} = 
-\frac{
-  v(i+1, j) - 
-  v(i, j)
-}{\Delta x}
-</script>
-</p>
-<p>对于扩散方程，采用前向欧拉进行时间差分。
-<script type="math/tex; mode=display">
-\frac{\partial c}{\partial t} \approx \frac{c_{t+1} - c_{t}}{\Delta t} 
-</script>
-</p>
-<p>而在计算浓度梯度时，采用中值差分方案计算浓度梯度（注意计算的是 u-stag 或者 v-stag 网格上的浓度梯度）。</p>
-<p>
-<script type="math/tex; mode=display">
-\rho\frac{\partial (\frac{c}{\rho})}{\partial x} \approx
-\Delta c^{\rho}_{i+1/2} =
-\frac{\rho_{i} + \rho_{i+1}}{\Delta x}
-\frac
-{\frac{c_{i+1}}{\rho_{i+1}} - \frac{c_{i}}{\rho_{i}} }{\Delta x}
-</script>
-</p>
-<p>因此，最后的积分表达式为
-<script type="math/tex; mode=display">
-\frac{c_{t+1} - c_{t}}{\Delta t} =
-\frac{
-  {Kx_{i+1/2} \times \Delta c^{\rho}_{i+1/2}} -
-  {Kx_{i-1/2} \times \Delta c^{\rho}_{i-1/2}}
-}{\Delta x}
-</script>
-</p>
-<p>注意扩散是从高浓度到低浓度，<script type="math/tex">K</script>始终大于0，浓度梯度决定通量的方向。</p>
-<h2>1.4 垂直扩散</h2>
-<p>白天行星边界层中湍流作用较强，垂直扩散在污染物的垂直浓度分布中起着至关重要的作用。</p>
-<p>
-<script type="math/tex; mode=display">
-\frac{\partial c}{\partial t} =
-\frac{\partial}{\partial z} \left(K_z \rho\frac{\partial (\frac{c}{\rho})}{\partial z} \right)
-</script>
-</p>
-<p>垂直方向的湍流，受温度梯度的影响和风切边的功能影响，因此垂直扩散系数的求解更为复杂。
-该模块中不实现垂直扩散系数的计算。</p>
-<p>在已知垂直扩散系数，用数值方法求解垂直扩散方程的难点在于垂直层网格的大小变化较为明显(从 10 ~ 1000m )。</p>
-<p>采用显示的时间积分方案会要求 dt 非常小，会显著增加计算时间，因此通常采用隐式的时间积分方案。</p>
-<p>与水平扩散一样，在计算浓度梯度时，采用中值差分方案计算浓度梯度（注意计算的是 w-stag 网格上的浓度梯度，做密度平均的时候，忽略了两层厚度之间的差异，同时任务两个格点中心之间的梯度处处相等）。</p>
-<p>
-<script type="math/tex; mode=display">
-\rho\frac{\partial (\frac{c}{\rho})}{\partial x} \approx
-\nabla_z c_{i+1/2} =
-\frac{\rho_{i} + \rho_{i+1}}{2}
-\frac
-{\frac{c_{i+1}}{\rho_{i+1}} - \frac{c_{i}}{\rho_{i}} }
-{0.5(\Delta z_{i+1}+\Delta z_{i})}
-</script>
-</p>
-<p>而时间差分方案选用后向欧拉。</p>
-<p>
-<script type="math/tex; mode=display">
-\frac{c^{t+1}_i - c^{t}_i }{\Delta t} =
-\frac{
-  {Kz_{i+1/2} \times \nabla c^{t+1}_{i+1/2}} -
-  {Kz_{i-1/2} \times \nabla c^{t+1}_{i-1/2}}
-  }{\Delta z_i}
-</script>
-</p>
-<p>带入浓度梯度公式</p>
-<p>
-<script type="math/tex; mode=display">
-\frac{c^{t+1}_i - c^{t}_i }{\Delta t} =
-\frac{
-   {Kz_{i/2} (\rho_{i+1} + \rho_{i})} {\frac{\frac{c^{t+1}_{i+1}}{\rho_{i+1}} - \frac{c^{t+1}_{i}}{\rho_{i}}}{(\Delta z_{i+1}+\Delta z_{i})}}-
-   {Kz_{i-1/2} (\rho_{i} + \rho_{i-1})} {\frac{ \frac{c^{t+1}_{i}}{\rho_{i}} - \frac{c^{t+1}_{i-1}}{\rho_{i-1}}}{(\Delta z_{i}+\Delta z_{i-1})}} 
-}{\Delta z_i}
-</script>
-</p>
-<p>假设
-<script type="math/tex; mode=display">
-  K^{\rho}_{i+1/2} = 
-  \frac{Kz_{i+1/2} (\rho_{i} + \rho_{i+1})}{(\Delta z_{i}+\Delta z_{i+1})}
-</script>
-</p>
-<p>则
-<script type="math/tex; mode=display">
-\frac{c^{t+1}_i - c^{t}_i }{\Delta t} =
-\frac{
-  K^{\rho}_{i+1/2} (\frac{c^{t+1}_{i+1}}{\rho_{i+1}} - \frac{c^{t+1}_{i}}{\rho_{i}}) -
-  K^{\rho}_{i-1/2} (\frac{c^{t+1}_{i}}{\rho_{i}} - \frac{c^{t+1}_{i-1}}{\rho_{i-1}})
-}{\Delta z_i}
-</script>
-</p>
-<p>将后向欧拉方程改写为矩阵形式 <script type="math/tex"> A \mathbf{c}^{t+1} = \mathbf{c}^t </script>，其中<script type="math/tex"> A </script>为</p>
-<p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-b_1 & c_1 & 0 & \cdots & 0 \\
-a_2 & b_2 & c_2 & \cdots & 0 \\
-0 & \ddots & \ddots & \ddots & 0 \\
-\vdots & \cdots & a_{n-1} & b_{n-1} & c_{n-1} \\
-0 & \cdots & 0 & a_n & b_n
-\end{pmatrix}
-</script>
-</p>
-<p>
-<script type="math/tex"> A </script> 的三对角元素表达式如下：</p>
-<ol>
-<li>
-<p><strong>下对角线元素（第 <script type="math/tex"> i </script> 行，第 <script type="math/tex"> i-1 </script> 列）</strong>：
-   <script type="math/tex; mode=display">
-   a_i = - \frac{\Delta t}{\Delta z_i} \cdot \frac{K^{\rho}_{i-1/2}}{\rho_{i-1}}
-   </script>
-</p>
-</li>
-<li>
-<p><strong>主对角线元素（第 <script type="math/tex"> i </script> 行，第 <script type="math/tex"> i </script> 列）</strong>：
-   <script type="math/tex; mode=display">
-   b_i = 1 + \frac{\Delta t}{\Delta z_i} \left( \frac{K^{\rho}_{i-1/2}}{\rho_i} + \frac{K^{\rho}_{i+1/2}}{\rho_i} \right)
-   </script>
-</p>
-</li>
-<li>
-<p><strong>上对角线元素（第 <script type="math/tex"> i </script> 行，第 <script type="math/tex"> i+1 </script> 列）</strong>：
-   <script type="math/tex; mode=display">
-   c_i = - \frac{\Delta t}{\Delta z_i} \cdot \frac{K^{\rho}_{i+1/2}}{\rho_{i+1}}
-   </script>
-</p>
-</li>
-</ol>
-<h2>1.5 参考文献</h2>
-<ul>
-<li>Smagorinsky J. General circulation experiments with the primitive equations: I. The basic experiment[J]. Monthly weather review, 1963, 91(3): 99-164.</li>
-<li>Anthes R A, Warner T T. Development of hydrodynamic models suitable for air pollution and other mesometerological studies[J]. Monthly Weather Review, 1978, 106(8): 1045-1078.</li>
-</ul>
     </div>
   </div>
       <hr>
@@ -413,7 +223,7 @@ a_2 & b_2 & c_2 & \cdots & 0 \\
         <div class="row justify-content-between">
           <div class="col">
             <p>
-              diffusion
+              FlexCTM/diffusion
  was developed by Linhong Xiao<br>              &copy; 2025 
 </p>
           </div>

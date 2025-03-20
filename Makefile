@@ -116,7 +116,7 @@ vscode: $(EXE)
 
 # docs
 docs:
-	ford ${TARGET}.md -o docs
+	ford docs.md -o docs
 
 # Clean up
 clean:

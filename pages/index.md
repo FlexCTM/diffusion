@@ -1,6 +1,7 @@
-title: 手册
+title: 开发者手册
 author: Linhong Xiao
-ordered_subpage: dev.md
-ordered_subpage: user.md
+ordered_subpage: summary.md
+ordered_subpage: horizontal.md
+ordered_subpage: vertical.md
 ---
 

@@ -1,0 +1,342 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="湍流扩散">
+    <meta name="author" content="Linhong Xiao" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>垂直扩散 &ndash; FlexCTM/diffusion</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+      <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">FlexCTM/diffusion </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">开发者手册</a></li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../program/main.html">Program</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>垂直扩散</h1>
+    <div class="container p-2 mb-4 bg-light border rounded-3">
+      <div class="row align-items-center justify-content-between">
+        <div class="col">
+          <ul class="list-inline" style="margin-bottom:0px; display:inline">
+          </ul>
+        </div>
+        <div class="col">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='index.html'>开发者手册</a></li>
+              <li class="breadcrumb-item active" aria-current="page">垂直扩散</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-3">
+        <div class="card card-body bg-light" id="sidebar-toc">
+          <ul class="nav flex-column align-items">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">开发者手册</a>
+            </li>
+          </ul>
+          <hr>
+          <nav class="nav nav-pills flex-column">
+              <a class="nav-link" href="summary.html">湍流扩散</a>
+              <a class="nav-link" href="horizontal.html">水平扩散</a>
+              <a class="nav-link active disabled" href="vertical.html">垂直扩散</a>
+          </nav>
+        </div>
+      </div>
+
+    <div class="col-9" id='text'>
+      <h2>3.1 垂直扩散</h2>
+<p>大气垂直扩散（vertical diffusion）是指由于湍流扩散和分子扩散作用，空气中的污染物、热量和水汽在垂直方向上的混合过程。分子扩散由气体分子的热运动引起，其较小，在大气模式中通常可以忽略。行星边界层中湍流作用较强，特别是在白天，垂直扩散在污染物的垂直浓度分布中起着至关重要的作用。</p>
+<p>
+<script type="math/tex; mode=display">
+\frac{\partial c}{\partial t} =
+\frac{\partial}{\partial z} \left(K_z \rho\frac{\partial (\frac{c}{\rho})}{\partial z} \right)
+</script>
+</p>
+<p>垂直方向的湍流发展强弱，受温度梯度的影响和风切变的共同影响，
+因此垂直扩散系数的求解更为复杂，一般由边界层方案给出（比如YSU方案）。
+该项目中不实现垂直扩散系数的计算。</p>
+<h2>3.2 边界条件</h2>
+<p>假设地面和垂直层顶无湍流扩散（齐次纽曼边界条件）。</p>
+<p>
+<script type="math/tex; mode=display">
+  \frac{\partial c}{\partial z} |_{z=0} = 0
+</script>
+<script type="math/tex; mode=display">
+  \frac{\partial c}{\partial z} |_{z=h} = 0
+</script>
+</p>
+<h2>3.3 数值方案</h2>
+<p>如果已知垂直扩散系数，采用数值方法求解垂直扩散方程的主要难点在于垂直层一般为非结构化网格（约 10 ～ 1000 米），这可能影响计算稳定性和精度。</p>
+<p>由于在边界层内，垂直网格大小在 10 米谅解，如果采用显式时间积分方案会对时间步长 <script type="math/tex">dt</script> 施加严格限制，要求其极小，从而显著增加计算成本。因此，通常采用隐式时间积分方案来求解离散方程组，以提高计算稳定性并允许较大的时间步长。</p>
+<p>与水平扩散一样，在计算浓度梯度时，采用中值差分方案计算浓度梯度（注意计算的是 w-stag 网格上的浓度梯度）。计算 w-stag 网格出的空气密度时（静力平衡且等温的情况，随高度指数衰减），采用一阶线性近似（指数函数是凹函数，一阶线性近似，增加了边界点的密度，会导致垂直扩散增加）。</p>
+<p>
+<script type="math/tex; mode=display">
+\rho \frac{\partial (\frac{c}{\rho})}{\partial x} \approx
+   \nabla_z c_{i+1/2} =
+   \frac{\Delta z_{i+1} \rho_{i} + \Delta z_{i} \rho_{i+1}}
+        {\Delta z_{i+1}+\Delta z_{i}}
+   \times
+   \frac{\frac{c_{i+1}}{\rho_{i+1}} - \frac{c_{i}}{\rho_{i}} }
+        {0.5(\Delta z_{i+1}+\Delta z_{i})}
+</script>
+</p>
+<p>而时间差分方案选用后向欧拉。</p>
+<p>
+<script type="math/tex; mode=display">
+\frac{c^{t+1}_i - c^{t}_i }{\Delta t} =
+\frac{
+  {Kz_{i+1/2} \times \nabla c^{t+1}_{i+1/2}} -
+  {Kz_{i-1/2} \times \nabla c^{t+1}_{i-1/2}}
+  }{\Delta z_i}
+</script>
+</p>
+<p>带入浓度梯度公式</p>
+<p>
+<script type="math/tex; mode=display">
+\frac{c^{t+1}_i - c^{t}_i }{\Delta t} =
+\frac{
+   Kz_{i+1/2}
+   \frac{\Delta z_{i+1} \rho_{i} + \Delta z_{i} \rho_{i+1}}
+        {\Delta z_{i+1}+\Delta z_{i}}
+   \frac{\frac{c^{t+1}_{i+1}}{\rho_{i+1}} - \frac{c^{t+1}_{i}}{\rho_{i}}}
+         {(\Delta z_{i+1}+\Delta z_{i})} -
+   Kz_{i-1/2} 
+   \frac{\Delta z_{i} \rho_{i-1} + \Delta z_{i-1} \rho_{i}}
+        {\Delta z_{i}+\Delta z_{i-1}}
+   \frac{\frac{c^{t+1}_{i}}{\rho_{i}} - \frac{c^{t+1}_{i-1}}{\rho_{i-1}}}
+        {(\Delta z_{i}+\Delta z_{i-1})}
+}{\Delta z_i}
+</script>
+</p>
+<p>设
+<script type="math/tex; mode=display">
+  K^{\rho}_{i+1/2} = 
+    2 \frac{Kz_{i+1/2} (\Delta z_{i+1} \rho_{i} + \Delta z_{i} \rho_{i+1})}
+           {(\Delta z_{i}+\Delta z_{i+1})^2}
+</script>
+</p>
+<p>则
+<script type="math/tex; mode=display">
+\frac{c^{t+1}_i - c^{t}_i }{\Delta t} =
+\frac{
+  K^{\rho}_{i+1/2} (\frac{c^{t+1}_{i+1}}{\rho_{i+1}} - \frac{c^{t+1}_{i}}{\rho_{i}}) -
+  K^{\rho}_{i-1/2} (\frac{c^{t+1}_{i}}{\rho_{i}} - \frac{c^{t+1}_{i-1}}{\rho_{i-1}})
+}{\Delta z_i}
+</script>
+</p>
+<p>将后向欧拉方程改写为矩阵形式 <script type="math/tex"> A \mathbf{c}^{t+1} = \mathbf{c}^t </script>，其中<script type="math/tex"> A </script>为</p>
+<p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+b_1 & c_1 & 0 & \cdots & 0 \\
+a_2 & b_2 & c_2 & \cdots & 0 \\
+0 & \ddots & \ddots & \ddots & 0 \\
+\vdots & \cdots & a_{n-1} & b_{n-1} & c_{n-1} \\
+0 & \cdots & 0 & a_n & b_n
+\end{pmatrix}
+</script>
+</p>
+<p>
+<script type="math/tex"> A </script> 的三对角元素表达式如下：</p>
+<ol>
+<li>
+<p><strong>下对角线元素（第 <script type="math/tex"> i </script> 行，第 <script type="math/tex"> i-1 </script> 列）</strong>：
+   <script type="math/tex; mode=display">
+   a_i = - \frac{\Delta t}{\Delta z_i} \cdot 
+          \frac{K^{\rho}_{i-1/2}}{\rho_{i-1}} < 0
+   </script>
+</p>
+</li>
+<li>
+<p><strong>主对角线元素（第 <script type="math/tex"> i </script> 行，第 <script type="math/tex"> i </script> 列）</strong>：
+   <script type="math/tex; mode=display">
+   b_i = 
+      1 + \frac{\Delta t}{\Delta z_i} 
+      \left( \frac{K^{\rho}_{i-1/2}}{\rho_i} + 
+             \frac{K^{\rho}_{i+1/2}}{\rho_i} \right) > 0
+   </script>
+</p>
+</li>
+<li>
+<p><strong>上对角线元素（第 <script type="math/tex"> i </script> 行，第 <script type="math/tex"> i+1 </script> 列）</strong>：
+   <script type="math/tex; mode=display">
+   c_i = - \frac{\Delta t}{\Delta z_i} \cdot 
+           \frac{K^{\rho}_{i+1/2}}{\rho_{i+1}} < 0
+   </script>
+</p>
+</li>
+</ol>
+<p>
+<script type="math/tex"> A \mathbf{c}^{t+1} = \mathbf{c}^t </script> 可由 Thomas 算法计算。
+如何保障 <script type="math/tex">\mathbf{c}^{t+1} > 0 </script>，且解是稳定的？</p>
+<p>其充分条件是 <script type="math/tex">A</script> 是严格对角占优的 M-矩阵，
+也就是 <script type="math/tex">b_i > -c_i - a_i</script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+      1 + \frac{\Delta t}{\Delta z_i} 
+      \left( \frac{K^{\rho}_{i-1/2}}{\rho_i} + 
+             \frac{K^{\rho}_{i+1/2}}{\rho_i} \right) > 
+      \frac{\Delta t}{\Delta z_i} \cdot 
+          \frac{K^{\rho}_{i-1/2}}{\rho_{i-1}} +
+      \frac{\Delta t}{\Delta z_i} \cdot 
+           \frac{K^{\rho}_{i+1/2}}{\rho_{i+1}} 
+   </script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+\Delta t < \frac{\Delta z_i}
+ { \frac{K^{\rho}_{i-1/2}}{\rho_{i-1}} + \frac{K^{\rho}_{i+1/2}}{\rho_{i+1}}
+   - \frac{K^{\rho}_{i-1/2}}{\rho_i} - \frac{K^{\rho}_{i+1/2}}{\rho_i}}
+</script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+\Delta t < \frac{\Delta z_i}{ 2 \left[
+\frac{Kz_{i-1/2} (\Delta z_{i} \rho_{i-1} + \Delta z_{i-1} \rho_{i})}
+           {(\Delta z_{i-1}+\Delta z_{i})^2} 
+\left(\frac{1}{\rho_{i-1}} - \frac{1}{\rho_i} \right) 
++ 
+\frac{Kz_{i+1/2} (\Delta z_{i+1} \rho_{i} + \Delta z_{i} \rho_{i+1})}
+           {(\Delta z_{i}+\Delta z_{i+1})^2} 
+\left(\frac{1}{\rho_{i+1}} - \frac{1}{\rho_i} \right) \right]}.
+</script>
+</p>
+<p>垂直层中间的 <script type="math/tex">\rho</script> 比较接近时，<script type="math/tex">dt</script> 取任意值，差分分案无条件稳定。</p>
+<h2>3.4 单元测试</h2>
+<p>设空气密度和扩散系数为定值，比如 <script type="math/tex">\rho = 1.0</script> 且 <script type="math/tex">Kz = 1.0</script>，
+则垂直扩散方程可以写作标准的热传导方程</p>
+<p>
+<script type="math/tex; mode=display">
+\frac{\partial c}{\partial t} = K_z \nabla^2 c
+</script>
+</p>
+<p>纽曼边界条件条件为 <script type="math/tex">\frac{\partial c}{\partial z} = 0</script>，
+用余弦函数构造初始条件
+<script type="math/tex; mode=display">
+c(z, 0) = \cos\left(\frac{\pi z}{L}\right) + 1
+</script>
+</p>
+<p>其解析解为
+<script type="math/tex; mode=display">
+c(z, t) = \cos\left(\frac{\pi z}{L}\right) e^{-\frac{\pi^2 K_z}{L^2} t} + 1
+</script>
+</p>
+<p>某个网格的平均值，在 <script type="math/tex"> z_0 </script> 到 <script type="math/tex"> z_1 </script> 之间的平均值，我们使用<strong>定积分的平均值公式</strong>：</p>
+<p>
+<script type="math/tex; mode=display">
+c_{\text{avg}} = \frac{1}{z_1 - z_0} \int_{z_0}^{z_1} c(z, t) \, dz.
+</script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+c_{\text{avg}} = e^{-\frac{\pi^2 K_z}{L^2} t} \cdot \frac{L}{\pi(z_1 - z_0)} \left[ \sin\left(\frac{\pi z_1}{L}\right) - \sin\left(\frac{\pi z_0}{L}\right) \right] + 1.
+</script>
+</p>
+<hr>
+<blockquote>
+<p>Hong S Y, Noh Y, Dudhia J. A new vertical diffusion package with an explicit treatment of entrainment processes[J]. Monthly weather review, 2006, 134(9): 2318-2341.</p>
+</blockquote>
+    </div>
+  </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              FlexCTM/diffusion
+ was developed by Linhong Xiao<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+
+    <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>

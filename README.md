@@ -1,11 +1,13 @@
 ## diffusion
-Sub-grid turbulent diffusion
+
+次网格湍流模块
 
 ## 安装
 1. 使用MAKE安装
 ```
 make lib
 ```
+生成的库的路径为 ```build/libdiffusion.a```
 
 2. 使用CMAKE安装
 ```
@@ -22,6 +24,12 @@ make
 fpm build --compiler 'ifort'
 ```
 
+如果采用 fpm 管理依赖关系和编译过程，则只需要在项目配置文件中引入仓即可。
+```
+[dependencies]
+diffusion.git = "git@github.com:FlexCTM/diffusion.git"
+```
+
 ## 单元测试
 ```
 fpm test --compiler 'ifort'
@@ -30,6 +38,37 @@ fpm test --compiler 'ifort'
 ## 调试
 ```
 COMPIFLE=gnu make gdb
+```
+
+### 案例代码
+
+``` fortran
+    use mod_tool, only: fp
+    use diffusion, only: cal_hdiff_k, vdiff_by_k_theory, hdiff_by_k_theory
+
+    implicit none
+
+    integer, parameter :: nz = 5
+
+    integer :: i
+    real(fp) :: dt  !! 积分时间: s
+    real(fp) :: kz(nz) !! 扩散系数: m2/s
+    real(fp) :: dz(nz) !! 垂直网格宽度: m
+
+    real(fp) :: rho(nz) !! 密度
+    real(fp) :: conc(nz) !! 浓度
+
+    dt = 10.
+    ! 读取数据
+    kz = 0.1
+    dz = 1.0
+    rho = 1.0
+    conc = [10, 8, 5, 10, 3]
+
+    ! 垂直扩散
+    do i = 1, 20
+        call vdiff_by_k_theory(dt, kz, dz, rho, conc)
+    end do
 ```
 
 ## License

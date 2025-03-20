@@ -29,7 +29,8 @@ module mod_vdiff
       nz = size(dz)
 
       do k = 1, nz-1
-         kz_rho(k) = kz(k) * (rho(k) + rho(k+1))/(dz(k) + dz(k+1))
+         ! kz_rho(k) = kz(k) * (rho(k) + rho(k+1))/(dz(k) + dz(k+1))
+         kz_rho(k) = 2._fp * kz(k) * (rho(k)*dz(k+1) + rho(k+1)*dz(k))/(dz(k) + dz(k+1))**2
       end do
       ! 后向欧拉
       ! Lower boundary condition
@@ -55,7 +56,7 @@ module mod_vdiff
       ! A c_{t+1} = c_t
       call thomas_solver(nz, aa, bb, cc, conc)
 
-      where(conc < eps) conc = 0.
+      where(conc < eps) conc = 0._fp
 
    end subroutine vdiff_by_k_theory
 
