@@ -82,7 +82,7 @@ module test_vdiff
           z0 = z1
           z1 = z0 + dz(k)
           ! conc(k) = cos(pi * (k-1+0.5) * dz(1) / L) + 1
-          conc(k) = (L / (pi * (z1 - z0))) * (sin(pi * z1 / L) - sin(pi * z0 / L)) + 1.0_fp
+          conc(k) = (L / (pi * (z1 - z0))) * (sin(pi*z1/L) - sin(pi*z0/L)) + 1.0_fp
         end do
   
         do i = 1, nt
@@ -94,7 +94,8 @@ module test_vdiff
           do k = 1, nz
             z0 = z1
             z1 = z0 + dz(k)
-            conc_exact(k) = exp(- (pi**2 * Kz(1) / L**2) * t) * (L / (pi * (z1 - z0))) * (sin(pi * z1 / L) - sin(pi * z0 / L)) + 1.0_fp
+            conc_exact(k) = exp(- (pi**2 * Kz(1) / L**2) * t) * &
+            (L / (pi * (z1 - z0))) * (sin(pi * z1 / L) - sin(pi * z0 / L)) + 1.0_fp
           end do
           write(*, '(15F9.3)') conc, sum(conc*dz)
           write(*, '(15F9.3)') conc_exact, sum(conc_exact*dz)
