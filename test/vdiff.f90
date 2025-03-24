@@ -27,8 +27,6 @@ module test_vdiff
         dt = 900.
         kz = [20., 10., 5., 1., 0.1]*20. ! 快速收敛
         dz = [50, 70, 100, 200, 300 ]
-        ! dz = 10.
-        ! rho = [10., 1., 0.1, 0.01, 0.001] ! 稳定
         rho = [10., 9., 8., 7., 6. ] ! 稳定
       
         conc = [10, 8, 5, 6, 3]
@@ -37,24 +35,23 @@ module test_vdiff
         ! 守恒性检查
         write(*, '(10F10.3)') conc, expected
         do i = 1, 20
-          call vdiff_by_k_theory(dt, kz, dz, rho, conc)
+          call vdiff_by_k_theory(dt, dz, kz, rho, conc)
           write(*, '(10F10.3)') conc, sum(conc*dz)
           call check(error, abs(sum(conc*dz) - expected) < expected*0.0001, "no conservation")
         end do
         
-        ! 一致性检查
+        ! 一致性检查: 扩散到平衡态，检查才有意义
+        write(*,*), "     conc,      rho"
         do i = 1, nz-1
           write(*, '(10F10.3)')  conc(i)/conc(i+1), rho(i)/rho(i+1)
-          call check(error, abs( conc(i)/conc(i+1) - rho(i)/rho(i+1)) < 0.01, "no consistency")
+          call check(error, abs(conc(i)/conc(i+1) - rho(i)/rho(i+1)) < 0.01, "no consistency")
         end do
 
       end subroutine test_conservation
 
       subroutine test_accuracy(error)
         type(error_type), allocatable, intent(out) :: error
-        integer, parameter :: n = 8
-        real(fp) :: a(n), b(n), c(n), x(n), d(n), x_expected(n)
-    
+
         integer, parameter :: nz = 10
         real(fp), parameter :: pi = 3.141592653589793_fp
 
@@ -87,7 +84,7 @@ module test_vdiff
   
         do i = 1, nt
           ! 计算数值解
-          call vdiff_by_k_theory(dt, kz, dz, rho, conc)
+          call vdiff_by_k_theory(dt, dz, kz, rho, conc)
           ! 计算解析解
           t = i * dt
           z1 = 0.0_fp
@@ -104,7 +101,7 @@ module test_vdiff
         end do
 
         ! 输出误差
-        write(*,*), "numerical, exact,    error"
+        write(*,*), "numerical,  exact,    error"
         do k = 1, nz
           write(*, '(15F9.3)') conc(k), conc_exact(k), (conc(k) - conc_exact(k))/conc_exact(k)
         end do

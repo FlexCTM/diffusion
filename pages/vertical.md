@@ -1,13 +1,11 @@
 title: 垂直扩散
 ---
 
-## 3.1 垂直扩散
-
 大气垂直扩散（vertical diffusion）是指由于湍流扩散和分子扩散作用，空气中的污染物、热量和水汽在垂直方向上的混合过程。分子扩散由气体分子的热运动引起，其较小，在大气模式中通常可以忽略。行星边界层中湍流作用较强，特别是在白天，垂直扩散在污染物的垂直浓度分布中起着至关重要的作用。
 
 \[
 \frac{\partial c}{\partial t} =
-\frac{\partial}{\partial z} \left(K_z \rho\frac{\partial (\frac{c}{\rho})}{\partial z} \right)
+\frac{\partial}{\partial z} \left(Kz \rho\frac{\partial (\frac{c}{\rho})}{\partial z} \right)
 \]
 
 垂直方向的湍流发展强弱，受温度梯度的影响和风切变的共同影响，
@@ -153,7 +151,7 @@ a_2 & b_2 & c_2 & \cdots & 0 \\
 \left(\frac{1}{\rho_{i+1}} - \frac{1}{\rho_i} \right) \right]}.
 \]
 
-垂直层中间的 \(\rho\) 比较接近时，\(dt\) 取任意值，差分分案无条件稳定。
+垂直层中间的 \(\rho\) 比较接近时，差分方案无条件稳定，\(dt\) 可以意值取任。
 
 ## 3.4 单元测试
 
@@ -161,29 +159,33 @@ a_2 & b_2 & c_2 & \cdots & 0 \\
 则垂直扩散方程可以写作标准的热传导方程
 
 \[
-\frac{\partial c}{\partial t} = K_z \nabla^2 c
+\frac{\partial c}{\partial t} = Kz \nabla^2 c
 \]
 
-纽曼边界条件条件为 \(\frac{\partial c}{\partial z} = 0\)，
+采用纽曼边界条件 \(\frac{\partial c}{\partial z} = 0\)，
 用余弦函数构造初始条件
 \[
-c(z, 0) = \cos\left(\frac{\pi z}{L}\right) + 1
+c(z, 0) = \cos\left(\frac{\pi z}{L}\right) + 1 > 0
 \]
 
 其解析解为
 \[
-c(z, t) = \cos\left(\frac{\pi z}{L}\right) e^{-\frac{\pi^2 K_z}{L^2} t} + 1
+c(z, t) = \cos\left(\frac{\pi z}{L}\right) e^{-\frac{\pi^2 Kz}{L^2} t} + 1
 \]
 
-某个网格的平均值，在 \( z_0 \) 到 \( z_1 \) 之间的平均值，我们使用**定积分的平均值公式**：
+某个网格的平均值(\( z_0 \) 到 \( z_1 \) 之间)，使用**定积分的平均值公式**：
 
 \[
 c_{\text{avg}} = \frac{1}{z_1 - z_0} \int_{z_0}^{z_1} c(z, t) \, dz.
 \]
 
+可以得到
 \[
-c_{\text{avg}} = e^{-\frac{\pi^2 K_z}{L^2} t} \cdot \frac{L}{\pi(z_1 - z_0)} \left[ \sin\left(\frac{\pi z_1}{L}\right) - \sin\left(\frac{\pi z_0}{L}\right) \right] + 1.
+c_{\text{avg}} = e^{-\frac{\pi^2 Kz}{L^2} t} \cdot \frac{L}{\pi(z_1 - z_0)} 
+  \left[ \sin\left(\frac{\pi z_1}{L}\right) - \sin\left(\frac{\pi z_0}{L}\right) \right] + 1.
 \]
+
+用该公式验证数值方案的精度。
 
 ---
 

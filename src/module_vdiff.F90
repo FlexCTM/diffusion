@@ -9,13 +9,13 @@ module mod_vdiff
 
    contains
 
-   subroutine vdiff_by_k_theory(dt, kz, dz, rho, conc)
+   subroutine vdiff_by_k_theory(dt, dz, kz, rho, conc)
       !! 采用后向欧拉法求解垂直方向的网格湍流扩散（K-theory）。
       !! 用 Thomas 算法求解后向时间差分格式的垂直扩散方程。
       !! 假设底层和顶层边界通量均为 0。
       real(fp), intent(in) :: dt    !! 积分时间: s
-      real(fp), intent(in) :: kz(:) !! 垂直扩散系数：m^2/s
       real(fp), intent(in) :: dz(:) !! 网格垂直层宽度: m
+      real(fp), intent(in) :: kz(:) !! 垂直扩散系数：m^2/s
 
       real(fp), intent(in) :: rho(:) !! 空气密度: kg/m^3
       real(fp), intent(inout) :: conc(:) !! 浓度: ug/m^3

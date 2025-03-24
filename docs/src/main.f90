@@ -24,10 +24,10 @@ program main
 
   write(*, *) '========== vdiff ==========='
 
-  write(*, '(10F10.3)') conc, sum(conc)
+  write(*, '(10F10.3)') conc, sum(conc*dz)
   do i = 1, 20
-    call vdiff_by_k_theory(dt, kz, dz, rho, conc)
-    write(*, '(10F10.3)') conc, sum(conc)
+    call vdiff_by_k_theory(dt, dz, kz, rho, conc)
+    write(*, '(10F10.3)') conc, sum(conc*dz)
   end do
 
 end program main

@@ -100,8 +100,9 @@
       </div>
 
     <div class="col-9" id='text'>
-      <h2>2.1 水平扩散</h2>
-<p>相较于水平输送，水平扩散的影响通常较小，在某些情况下甚至可以忽略不计。</p>
+      <p>水平湍流主要是由风切变引起的，在分辨率较高时，相较于水平输送，水平扩散的影响相对较小，
+而在分辨率叫粗时，加入水平扩散方案
+可以有效弥补粗网格尺度导致的次网格混合不足。</p>
 <p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -112,41 +113,67 @@
 \end{align*}
 </script>
 </p>
-<p>根据 Smagorinsky (1963) 公式，可求解水平扩散系数 
+<h2>2.1 水平扩散系数</h2>
+<p>由于水平湍流主要是由风切变引起的，因此水平湍流与流体的水平形变密切相关。
+Smagorinsky (1963) 基于形变法（Deformation Method），给出了水平扩散系数的求解公式，
+即假设次网格动能耗散主要由局地应变率张量（strain rate tensor）决定。</p>
+<p>
 <script type="math/tex; mode=display">
-   K_{x, y} = C_s \Delta^2 |D|
+   K_h = C_s \Delta^2 |\mathbb{D}|
 </script>
 </p>
 <p>其中：</p>
 <ul>
 <li>
-<script type="math/tex"> C_s </script> 是 Smagorinsky 常数（通常取 <strong>0.1 - 0.25</strong>，大气应用中常用 <strong>0.2</strong>）。</li>
+<script type="math/tex"> C_s </script> 为 Smagorinsky 常数（通常取 <strong>0.1 - 0.25</strong>，大气应用中常用 <strong>0.2</strong>）</li>
 <li>
-<script type="math/tex"> \Delta </script> 是网格尺度（通常定义为网格间距的几何平均：<script type="math/tex"> \Delta = (\Delta x \Delta y )^{1/2} </script>）。</li>
-<li>
-<script type="math/tex"> |\mathbf{D}| </script> 是水平速度的二阶张量的模量，定义为：
-  <script type="math/tex; mode=display">
-  |\mathbf{D}| = [(\frac{\partial u}{\partial y} +
-    \frac{\partial v}{\partial x})^2
-  +(\frac{\partial u}{\partial x} -
-    \frac{\partial v}{\partial y})^2]^{1/2}
-  </script>
-</li>
+<script type="math/tex"> \Delta </script> 为网格尺度（通常定义为网格间距的几何平均：<script type="math/tex"> \Delta = (\Delta x \Delta y )^{1/2} </script>）</li>
 </ul>
-<p>可以增加一个常数，让模拟的浓度变得更加光滑（Anthes and Warner, 1978）。
+<p>
+<script type="math/tex"> \mathbb{D} </script> 为 应变率张量，定义为
 <script type="math/tex; mode=display">
-   K_{x, y} = K_0 + C_s \Delta^2 |D|
+\mathbb{D} =
+\begin{bmatrix}
+\frac{\partial u}{\partial x} & \frac{1}{2} \left( \frac{\partial u}{\partial y} + \frac{\partial v}{\partial x} \right) \\
+\frac{1}{2} \left( \frac{\partial u}{\partial y} + \frac{\partial v}{\partial x} \right) & \frac{\partial v}{\partial y}
+\end{bmatrix}
 </script>
 </p>
-<p>其中<script type="math/tex">K_0</script>的值为</p>
 <p>
+<script type="math/tex"> |\mathbb{D}| </script> 是应变率张量的某种范数（两个特征值之差），
+用来度量形变的整体程度，定义为:
+  <script type="math/tex; mode=display">
+  |\mathbb{D}| = 
+  [(b + c)^2 + (a - b)^2]^{1/2} = 
+  [(\frac{\partial u}{\partial y} +
+    \frac{\partial v}{\partial x})^2 +
+   (\frac{\partial u}{\partial x} -
+    \frac{\partial v}{\partial y})^2]^{1/2}
+  </script>
+</p>
+<p>
+<script type="math/tex"> |\mathbb{D}| </script> 可以看作是剪切应变（形变）和拉伸应变（膨胀、压缩）的共同作用.</p>
+<hr>
+<p>在 Smagorinsky 公式的基础上，可以增加一个常数项，让模拟的浓度变得更加光滑（Anthes and Warner, 1978）。
+<script type="math/tex; mode=display">
+   K_h = K_0 + C_s \Delta^2 |\mathbb{D}|
+</script>
+其中 <script type="math/tex">K_0</script> 的值为
 <script type="math/tex; mode=display">
   K_0 = 3 \times 10^{-3} \frac{\Delta x \Delta y}{\Delta t}
 </script>
 </p>
-<p>为了便于通量计算，水平扩散系数<script type="math/tex">K_{x, y}</script> 通常是在 Arakawa C 网格上定义，对于一个网格单元，其四条边上的每一条边均需计算一个<script type="math/tex">K</script>值，以准确描述水平扩散过程。</p>
-<p>
-<script type="math/tex">K</script>的计算涉及到速度的空间差分，采用中值差分方案求速度梯度。</p>
+<h2>2.2 边界条件</h2>
+<p>水平扩散采用严格的定值边界条件( Dirichlet 边界条件)。
+<script type="math/tex; mode=display">
+  c(t, b) = c_b
+</script>
+<script type="math/tex">c_b</script> 为边界处的固定值，通过并行通信获得或者外部文件读入。</p>
+<h2>2.3 数值方案</h2>
+<p>为了便于通量计算，水平扩散系数<script type="math/tex">K_h</script> 通常定义在 Arakawa C 网格，
+对于一个网格单元，其四条边（v-stag 和 u-stag 网格）均需计算一个<script type="math/tex">K_h</script>值。</p>
+<p>根据 Smagorinsky 公式，计算 <script type="math/tex">K_h</script> 涉及速度梯度，需要空间差分，
+一般采用中值差分方案求速度梯度。</p>
 <p>
 <script type="math/tex; mode=display">
 (\frac{\partial u}{\partial x})_{i+1/2, j} = 
@@ -159,8 +186,8 @@
 \frac{u_{i+1/2, j+1} - u_{i+1/2, j-1}}{2 \Delta y}
 </script>
 </p>
-<p>在求解 v-stag 网格点上的 <script type="math/tex">v</script> 在 u-stag 网格上的梯度时，需要首先将 
-<script type="math/tex">v</script>从 v-stag 网格插值到 mass 网格。为了简单，通常采用线性插值方法。</p>
+<p>在 u-stag 网格上的 <script type="math/tex">v</script>（定义在 v-stag 网格）梯度时，需要首先将 
+<script type="math/tex">v</script> 从 v-stag 网格插值到 mass 网格。为了简单，通常采用线性插值方法。</p>
 <p>
 <script type="math/tex; mode=display">
 v(i, j) = 
@@ -170,12 +197,18 @@ v(i, j) =
 <p>因此
 <script type="math/tex; mode=display">
 (\frac{\partial v}{\partial x})_{i+1/2, j} = 
-\frac{
-  v(i+1, j) - 
-  v(i, j)
-}{\Delta x}
+\frac{ v(i+1, j) - v(i, j)}{\Delta x}
 </script>
 </p>
+<p>
+<script type="math/tex; mode=display">
+(\frac{\partial v}{\partial y})_{i+1/2, j} = 
+\frac{v(i, j+1) - v(i, j)}{\Delta y}
+</script>
+</p>
+<p>将速度梯度带入 Smagorinsky 公式，即可求得 <script type="math/tex">K_h</script>
+</p>
+<hr>
 <p>对于扩散方程，采用前向欧拉进行时间差分。
 <script type="math/tex; mode=display">
 \frac{\partial c}{\partial t} \approx \frac{c_{t+1} - c_{t}}{\Delta t} 
@@ -200,7 +233,47 @@ v(i, j) =
 }{\Delta x}
 </script>
 </p>
-<p>注意扩散是从高浓度到低浓度，<script type="math/tex">K</script>始终大于0，浓度梯度决定通量的方向。</p>
+<p>其中
+<script type="math/tex">
+flux_{i+1/2} = {Kx_{i+1/2} \times \Delta c^{\rho}_{i+1/2}}
+</script> 可以等效理解为通量。</p>
+<p>注意扩散是从高浓度到低浓度，<script type="math/tex">K_h</script> 始终大于0，浓度梯度决定通量的方向。</p>
+<h2>2.4 单元测试</h2>
+<p>设空气密度和扩散系数为定值，
+比如 <script type="math/tex">\rho = 1.0</script> 且 <script type="math/tex">K_h = 1.0</script>，
+则水平扩散方程可以写作标准的热传导方程</p>
+<p>
+<script type="math/tex; mode=display">
+\frac{\partial c}{\partial t} = K_h \nabla^2 c
+</script>
+</p>
+<p>采用狄利克雷条件 <script type="math/tex">c_b = 0</script>，
+用正玄函数构造初始条件
+<script type="math/tex; mode=display">
+c(x, 0) = \sin\left(\frac{\pi x}{L}\right) > 0
+</script>
+</p>
+<p>其解析解为
+<script type="math/tex; mode=display">
+c(x, t) = \sin\left(\frac{\pi x}{L}\right) e^{-\frac{\pi^2 K_h}{L^2} t}
+</script>
+</p>
+<p>某个网格的平均值( <script type="math/tex"> x_0 </script> 到 <script type="math/tex"> x_1 </script> 之间)，使用<strong>定积分的平均值公式</strong>：</p>
+<p>
+<script type="math/tex; mode=display">
+c_{\text{avg}} = \frac{1}{x_1 - x_0} \int_{x_0}^{x_1} c(x, t) \, dx.
+</script>
+</p>
+<p>可以得到
+<script type="math/tex; mode=display">
+c_{\text{avg}} =
+  - e^{-\frac{\pi^2 K_h}{L^2} t} \cdot \frac{L}{\pi(x_1 - x_0)} 
+  \left[ \cos\left(\frac{\pi x_1}{L}\right) - 
+         \cos\left(\frac{\pi x_0}{L}\right)
+  \right]
+</script>
+</p>
+<p>用该公式验证数值方案的精度。</p>
 <blockquote>
 <p>Smagorinsky J. General circulation experiments with the primitive equations: I. The basic experiment[J]. Monthly weather review, 1963, 91(3): 99-164.</p>
 <p>Anthes R A, Warner T T. Development of hydrodynamic models suitable for air pollution and other mesometerological studies[J]. Monthly Weather Review, 1978, 106(8): 1045-1078.</p>
