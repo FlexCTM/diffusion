@@ -2,7 +2,7 @@ name = "diffusion"
 version = "0.1.0"
 license = "license"
 author = "xiaolh"
-maintainer = "xiaolh@3clear.com"
+maintainer = "xiaolh09@lzu.edu.cn"
 copyright = "Copyright 2024, xiaolh"
 
 [build]

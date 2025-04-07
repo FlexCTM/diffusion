@@ -100,8 +100,8 @@
       </div>
 
     <div class="col-9" id='text'>
-      <p>水平湍流主要是由风切变引起的，在分辨率较高时，相较于水平输送，水平扩散的影响相对较小，
-而在分辨率叫粗时，加入水平扩散方案
+      <p>水平湍流主要是由风切变引起，在分辨率较高时，相较于水平输送，水平扩散的影响相对较小，
+而在分辨率较粗时，加入水平扩散方案
 可以有效弥补粗网格尺度导致的次网格混合不足。</p>
 <p>
 <script type="math/tex; mode=display">
@@ -114,9 +114,9 @@
 </script>
 </p>
 <h2>2.1 水平扩散系数</h2>
-<p>由于水平湍流主要是由风切变引起的，因此水平湍流与流体的水平形变密切相关。
+<p>由于水平湍流主要是由风切变引起的，因此水平湍流的强弱与流体的水平形变大小密切相关。
 Smagorinsky (1963) 基于形变法（Deformation Method），给出了水平扩散系数的求解公式，
-即假设次网格动能耗散主要由局地应变率张量（strain rate tensor）决定。</p>
+即，假设次网格动能耗散主要由局地应变率张量（strain rate tensor）决定。</p>
 <p>
 <script type="math/tex; mode=display">
    K_h = C_s \Delta^2 |\mathbb{D}|
@@ -141,7 +141,7 @@ Smagorinsky (1963) 基于形变法（Deformation Method），给出了水平扩�
 </p>
 <p>
 <script type="math/tex"> |\mathbb{D}| </script> 是应变率张量的某种范数（两个特征值之差），
-用来度量形变的整体程度，定义为:
+用来度量流元形变的整体程度，定义为:
   <script type="math/tex; mode=display">
   |\mathbb{D}| = 
   [(b + c)^2 + (a - b)^2]^{1/2} = 
